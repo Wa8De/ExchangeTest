@@ -10,10 +10,12 @@ const TransactionsCategory = require("../../models/TransactionTypes/Transactions
 
 class TransactionController {
   static getTransaction = async (req, res) => {
+    const page = req.query.page || 1;
+    const ITEMS_PER_PAGE = 20;
     const query = {
       deletedAt: null,
     };
-    const { min, max, amountValue, currency, status, category } = req.query;
+    const { min, max, amountValue, currency, status, category, id } = req.query;
     // RANGE FILTER
     if (min || max || amountValue) {
       if (amountValue) {
@@ -42,6 +44,7 @@ class TransactionController {
         query.Amount = balance;
       }
     }
+
     // CURRENCY FILTER
     if (currency) {
       const selectedCurrency = await Currency.findOne({
@@ -52,8 +55,22 @@ class TransactionController {
           message: `No transactions were found with the currency: ${currency}`,
         });
       }
-      console.log(selectedCurrency);
+      // console.log(selectedCurrency);
       query.CurrencyId = selectedCurrency._id;
+    }
+
+    if (id) {
+      console.log(id);
+      const client = await User.findOne({
+        _id: id,
+      });
+      if (!id) {
+        return res.status(404).json({
+          message: `No Client were found with the id: ${currency}`,
+        });
+      }
+      console.log(client);
+      query.ClientId = client._id;
     }
 
     // CATEGORY FILTER
@@ -66,7 +83,7 @@ class TransactionController {
           message: `No transactions were found with the category: ${category}`,
         });
       }
-      console.log(selectedCategory);
+      // console.log(selectedCategory);
       query.TypeTransaction = selectedCategory._id;
     }
     // STATUS FILTER
@@ -87,6 +104,9 @@ class TransactionController {
           });
       }
     }
+    const skip = (page - 1) * ITEMS_PER_PAGE; // Calculate the number of documents to skip
+    const limit = ITEMS_PER_PAGE; // Number of documents to retrieve per page
+
     try {
       const transactions = await Transaction.find(query)
         .populate("ClientId")
@@ -99,9 +119,13 @@ class TransactionController {
             path: "profile",
             model: "Profile",
           },
-        });
-      console.log(query);
-      res.send({ transactions });
+        })
+        .skip(skip)
+        .limit(limit);
+      // console.log(transactions);
+      const count = await Transaction.countDocuments(query);
+      const pageCount = Math.ceil(count / ITEMS_PER_PAGE);
+      res.send({ transactions, pagination: { count, pageCount, page } });
     } catch (error) {
       console.error(error);
       res.status(500).send({ error: "Server Error" });
@@ -114,7 +138,18 @@ class TransactionController {
       const transaction = await Transaction.findOne({
         _id: transId,
         deletedAt: null,
-      });
+      })
+        .populate("ClientId")
+        .populate("Amount")
+        .populate("CurrencyId")
+        .populate("TypeTransaction")
+        .populate({
+          path: "ClientId",
+          populate: {
+            path: "profile",
+            model: "Profile",
+          },
+        });
       console.log(transaction);
       if (!transaction) {
         return res.status(404).json({ error: "Transaction not found" });
@@ -130,7 +165,7 @@ class TransactionController {
     const event = await GetEventType(req.route, req.method);
     const { Amount, CurrencyId, Commission, TypeTransaction } = req.body;
     const ClientId = req.user._id;
-    console.log(ClientId);
+    // console.log(ClientId);
     const HasPermission = await PermissionsController.UserHasPermission(
       ClientId,
       "transactionsCreate"

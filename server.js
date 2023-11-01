@@ -12,9 +12,16 @@ const TransactionRoutes = require("./routes/transactions/transactionRoutes");
 const TransactionCategoriesRoutes = require("./routes/transactionsCategory/transactionsCategoryRoutes");
 const currencyRoutes = require("./routes/currencies/currencyRoutes");
 const HistoryRoutes = require("./routes/history/HistoryRoutes");
+const TimeZoneRoutes = require("./routes/Timezone/TimeZoneRoutes");
 
 
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:5173"],
+  methods: ["POST", "GET", "OPTIONS","PUT","DELETE"],
+  credentials: true,
+  optionsSuccessStatus: 204, // Set the success status for OPTIONS requests
+}));
+
 app.use(express.json());
 
 const port = process.env.PORT;
@@ -29,6 +36,7 @@ app.use("/api", TransactionCategoriesRoutes);
 app.use("/api", RolesRoutes);
 app.use("/api", PermissionsRoutes);
 app.use("/api", currencyRoutes);
+app.use("/api", TimeZoneRoutes);
 app.use("/api", HistoryRoutes);
 
 //run the server
