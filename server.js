@@ -17,7 +17,7 @@ const DeviseRoutes = require("./routes/Devise/DeviseRoutes");
 
 
 app.use(cors({
-  origin: ["http://localhost:5173"],
+  origin: ["https://exchange-mu-one.vercel.app"],
   methods: ["POST", "GET", "OPTIONS","PUT","DELETE"],
   credentials: true,
   optionsSuccessStatus: 204, 
