@@ -378,7 +378,7 @@ class TransactionController {
     const decision = req.body.decision;
     const raison = req.body.raison;
     const event = await GetEventType(req.route, req.method, decision);
-
+    let FinalDecision;
     const HasPermission = await PermissionsController.UserHasPermission(
       req.user._id,
       "transactionsValidate"
@@ -393,9 +393,20 @@ class TransactionController {
         return res.status(404).json({ error: "Transaction not found" });
       } else {
         if (decision !== undefined) {
+          switch (decision) {
+            case true:
+              FinalDecision = "Approved";
+              break;
+            case false:
+              FinalDecision = "Declined";
+              break;
+            default:
+              FinalDecision = "Pending";
+          }
+          console.log(FinalDecision);
           const updatedStatus = await Transaction.findByIdAndUpdate(
             transaction._id,
-            { Status: decision },
+            { Status: FinalDecision },
             { new: true }
           );
           historyEntries.push({

@@ -5,6 +5,7 @@ class CheckUser {
   //Get the User's Id from the JWT token
   static getUser = async (req, res, next) => {
     const authHeader = req.headers["authorization"];
+    console.log(authHeader);
     if (!authHeader) {
       return res.status(401).json({ error: "Authorization header missing" });
     }
