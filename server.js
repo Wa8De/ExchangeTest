@@ -14,6 +14,7 @@ const currencyRoutes = require("./routes/currencies/currencyRoutes");
 const HistoryRoutes = require("./routes/history/HistoryRoutes");
 const TimeZoneRoutes = require("./routes/Timezone/TimeZoneRoutes");
 const DeviseRoutes = require("./routes/Devise/DeviseRoutes");
+const ExchangeRatesRoutes = require("./routes/ExchangeRates/ExchangeRatesRoutes");
 
 
 app.use(cors({
@@ -42,6 +43,7 @@ app.use("/api", PermissionsRoutes);
 app.use("/api", currencyRoutes);
 app.use("/api", TimeZoneRoutes);
 app.use("/api", DeviseRoutes);
+app.use("/api", ExchangeRatesRoutes);
 app.use("/api", HistoryRoutes);
 
 //run the server

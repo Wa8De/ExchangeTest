@@ -10,11 +10,11 @@ const DeviseSchema = new mongoose.Schema({
     },
     country : {
         type: String,
-        require : true
+        required : true
     },
     city : {
         type: String,
-        require :true
+        required :true
     }
 })
 module.exports = mongoose.model("Devise", DeviseSchema)

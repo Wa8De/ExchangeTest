@@ -34,11 +34,25 @@ const TransactionSchema = mongoose.Schema({
     required: false,
     default: null,
   },
+  Description: {
+    type: String,
+    required: false,
+    default: null,
+  },
+  Commentaire: {
+    type: String,
+    required: false,
+    default: null,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now, // Set to the current timestamp by default
+  },
   transactionHistory: [
     [
       {
         property: {
-          type: String, 
+          type: String,
           default: null,
         },
         previous: {
