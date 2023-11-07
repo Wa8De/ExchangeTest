@@ -130,7 +130,6 @@ class UserController {
       if (
         !userName ||
         !email ||
-        !roleName ||
         !phoneNumber ||
         !firstName ||
         !lastName ||
@@ -144,13 +143,6 @@ class UserController {
       const userExists = await User.findOne({ email });
       if (userExists) {
         return res.status(400).json({ error: "User already exists" });
-      }
-
-      // Find the role by its name
-      const chosenRole = await Role.findOne({ roleName });
-
-      if (!chosenRole) {
-        return res.status(400).json({ error: "Invalid role name" });
       }
 
       // Find permissions by name and get their ObjectId references
@@ -167,7 +159,7 @@ class UserController {
         userName,
         email,
         password: hashedPassword,
-        role: chosenRole._id,
+        role: roleName,
         permissions: permissionIds, // Assign the permission IDs
       });
       await newUser.save();
@@ -215,31 +207,11 @@ class UserController {
       if (!passwordMatch) {
         return res.status(401).json({ error: "Invalid credentials" });
       }
-
-      // Find the user's role
-      const { role } = user;
-
-      if (!role) {
-        console.log("User does not have a role.");
-        return res.status(500).json({ error: "User does not have a role" });
-      }
-
-      // Use the user's 'role' field (which contains the role's ObjectId) to find the role by its ObjectId
-      const roleName = await Role.findOne({ _id: role });
-
-      if (!roleName) {
-        console.log("Role not found.");
-        return res.status(500).json({ error: "Role not found" });
-      }
-
-      const UserRole = roleName.role;
-
       // Generate a JWT token and send it in the response
       const token = generateToken(user);
 
       return res.status(200).json({
         message: "Logged in successfully!",
-        UserRole, // Include the user's role in the response
         token,
       });
     } catch (error) {
@@ -430,9 +402,6 @@ class UserController {
     }
   };
   static restore = async (req, res) => {
-    // const query = {
-    //   deletedAt: !null,
-    // };
     try {
       const users = await User.find({ deletedAt: { $ne: null } });
 

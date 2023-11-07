@@ -17,12 +17,14 @@ const DeviseRoutes = require("./routes/Devise/DeviseRoutes");
 const ExchangeRatesRoutes = require("./routes/ExchangeRates/ExchangeRatesRoutes");
 
 
-app.use(cors({
-  origin: ["https://exchange-mu-one.vercel.app"],
-  methods: ["POST", "GET", "OPTIONS","PUT","DELETE"],
-  credentials: true,
-  optionsSuccessStatus: 204, 
-}));
+app.use(
+  cors({
+    origin: ["https://exchange-mu-one.vercel.app"],
+    methods: ["POST", "GET", "OPTIONS", "PUT", "DELETE"],
+    credentials: true,
+    optionsSuccessStatus: 204,
+  })
+);
 
 //using Json
 app.use(express.json());

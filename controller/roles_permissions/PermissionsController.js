@@ -173,7 +173,9 @@ class PermissionsController {
 
   //Check if a User has a Permission
   static UserHasPermission = async (userId, permission) => {
+    console.log(userId);
     const user = await User.findOne({ _id: userId }).populate("permissions");
+    // console.log(user);
     const userPermissions = user.permissions;
     const wantedPermission = await Permission.findOne({
       permissionName: permission,

@@ -32,7 +32,7 @@ class TransactionCategoryController {
 
   static createTransactionCategory = async (req, res) => {
     const { NameCategory, DescriptionCategory } = req.body;
-    const ClientId = req.user.userId;
+    const ClientId = req.user._id;
     const HasPermission = await PermissionsController.UserHasPermission(
       ClientId,
       "categoryCreate"

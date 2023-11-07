@@ -19,8 +19,9 @@ const userSchema = mongoose.Schema(
       required: [true, "Please add a password"],
     },
     role: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Role", // Reference to the Role model
+      type:String,
+      required:true,
+      default:"Admin"
     },
     status: {
       type: Boolean,
