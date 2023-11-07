@@ -10,7 +10,7 @@ const TransactionsCategory = require("../../models/TransactionTypes/Transactions
 
 class TransactionController {
   static getTransaction = async (req, res) => {
-    const page = req.query.page || 1;
+    const page = req.query.page;
     const ITEMS_PER_PAGE = 20;
     const query = {
       deletedAt: null,
@@ -108,24 +108,46 @@ class TransactionController {
     const limit = ITEMS_PER_PAGE; // Number of documents to retrieve per page
 
     try {
-      const transactions = await Transaction.find(query)
-        .populate("ClientId")
-        .populate("Amount")
-        .populate("CurrencyId")
-        .populate("TypeTransaction")
-        .populate({
-          path: "ClientId",
-          populate: {
-            path: "profile",
-            model: "Profile",
-          },
-        })
-        .skip(skip)
-        .limit(limit);
+      if (page) {
+        const transactions = await Transaction.find(query)
+          .populate("ClientId")
+          .populate("Amount")
+          .populate("CurrencyId")
+          .populate("TypeTransaction")
+          .populate({
+            path: "ClientId",
+            populate: {
+              path: "profile",
+              model: "Profile",
+            },
+          })
+          .skip(skip)
+          .limit(limit);
+        const count = await Transaction.countDocuments(query);
+        const pageCount = Math.ceil(count / ITEMS_PER_PAGE);
+        console.log("test");
+        res.send({
+          transactions,
+          pagination: { count, pageCount, page },
+        });
+      } else {
+        const transactions = await Transaction.find(query)
+          .populate("ClientId")
+          .populate("Amount")
+          .populate("CurrencyId")
+          .populate("TypeTransaction")
+          .populate({
+            path: "ClientId",
+            populate: {
+              path: "profile",
+              model: "Profile",
+            },
+          });
+        res.send({
+          transactions,
+        });
+      }
       // console.log(transactions);
-      const count = await Transaction.countDocuments(query);
-      const pageCount = Math.ceil(count / ITEMS_PER_PAGE);
-      res.send({ transactions, pagination: { count, pageCount, page } });
     } catch (error) {
       console.error(error);
       res.status(500).send({ error: "Server Error" });

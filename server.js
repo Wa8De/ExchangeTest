@@ -18,7 +18,7 @@ const ExchangeRatesRoutes = require("./routes/ExchangeRates/ExchangeRatesRoutes"
 
 
 app.use(cors({
-  origin: ["https://exchange-mu-one.vercel.app"],
+  origin: ["http://localhost:5173"],
   methods: ["POST", "GET", "OPTIONS","PUT","DELETE"],
   credentials: true,
   optionsSuccessStatus: 204, 

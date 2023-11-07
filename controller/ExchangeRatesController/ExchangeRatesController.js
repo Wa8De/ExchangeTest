@@ -31,8 +31,8 @@ class ExchangeRatesController {
     }
   };
 
-  //Get all ExchangeRatess
-  static GetExchangeRatess = async (req, res) => {
+  //Get all ExchangeRates
+  static GetExchangeRates = async (req, res) => {
     try {
       const exchangeRates = await ExchangeRates.find();
       if (!exchangeRates) {
@@ -50,7 +50,7 @@ class ExchangeRatesController {
     }
   };
 
-  //Show a ExchangeRates
+  //Show an ExchangeRate
   static ShowExchangeRates = async (req, res) => {
     const id = req.params.id;
     try {
@@ -70,7 +70,7 @@ class ExchangeRatesController {
     }
   };
 
-  //Update a ExchangeRates
+  //Update an ExchangeRate
   static updateExchangeRates = async (req, res) => {
     const { id } = req.params;
     const {
@@ -101,6 +101,26 @@ class ExchangeRatesController {
       return res.status(200).json({
         message: "ExchangeRates updated successfully",
         updatedExchangeRates,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+
+  //Delete an ExchangeRate
+  static deleteExchangeRates = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const deletedExchangeRates = await ExchangeRates.findByIdAndDelete(id);
+
+      if (!deletedExchangeRates) {
+        return res.status(404).json({ error: "ExchangeRates not found" });
+      }
+
+      return res.status(200).json({
+        message: "ExchangeRates deleted successfully"
       });
     } catch (error) {
       console.error(error);

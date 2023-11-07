@@ -90,5 +90,26 @@ class DeviseController {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   };
+
+  //Delete devise
+  static deleteDevise = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const deletedDevise = await Devise.findByIdAndDelete(id);
+  
+      if (!deletedDevise) {
+        return res.status(404).json({ error: "Devise not found" });
+      }
+  
+      return res.status(200).json({
+        message: "Devise deleted successfully"
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+  
 }
 module.exports = DeviseController;

@@ -8,5 +8,6 @@ router.get("/devises", DeviseController.GetDevises)
 router.post("/devises", DeviseController.CreateDevise)
 router.get("/devises/:id", DeviseController.ShowDevise)
 router.put("/devises/:id", DeviseController.updateDevise)
+router.delete("/devises/:id", DeviseController.deleteDevise)
 
 module.exports = router
