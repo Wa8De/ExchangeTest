@@ -10,6 +10,10 @@ const TransactionSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Balance",
   },
+  // Amount: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Balance",
+  // },
 
   CurrencyId: {
     type: mongoose.Schema.Types.ObjectId,
