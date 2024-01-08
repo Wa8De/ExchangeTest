@@ -153,6 +153,150 @@ class TransactionController {
       res.status(500).send({ error: "Server Error" });
     }
   };
+  // static getTransaction = async (req, res) => {
+  //   const page = req.query.page;
+  //   const ITEMS_PER_PAGE = 20;
+  //   const query = {
+  //     deletedAt: null,
+  //   };
+  //   const { min, max, amountValue, currency, status, category, id } = req.query;
+  //   // RANGE FILTER
+  //   if (min || max || amountValue) {
+  //     if (amountValue) {
+  //       const balance = await Balance.find({ Amount: amountValue }, { _id: 1 });
+  //       query.Amount = balance;
+  //     }
+  //     if (min && !max) {
+  //       const balance = await Balance.find(
+  //         { Amount: { $gte: min } },
+  //         { _id: 1 }
+  //       );
+  //       query.Amount = balance;
+  //     }
+  //     if (max && !min) {
+  //       const balance = await Balance.find(
+  //         { Amount: { $lte: max } },
+  //         { _id: 1 }
+  //       );
+  //       query.Amount = balance;
+  //     }
+  //     if (min && max) {
+  //       const balance = await Balance.find(
+  //         { Amount: { $gte: min, $lte: max } },
+  //         { _id: 1 }
+  //       );
+  //       query.Amount = balance;
+  //     }
+  //   }
+
+  //   // CURRENCY FILTER
+  //   if (currency) {
+  //     const selectedCurrency = await Currency.findOne({
+  //       CurrencyCode: currency,
+  //     });
+  //     if (!selectedCurrency) {
+  //       return res.status(404).json({
+  //         message: `No transactions were found with the currency: ${currency}`,
+  //       });
+  //     }
+  //     // console.log(selectedCurrency);
+  //     query.CurrencyId = selectedCurrency._id;
+  //   }
+
+  //   if (id) {
+  //     console.log(id);
+  //     const client = await User.findOne({
+  //       _id: id,
+  //     });
+  //     if (!id) {
+  //       return res.status(404).json({
+  //         message: `No Client were found with the id: ${currency}`,
+  //       });
+  //     }
+  //     console.log(client);
+  //     query.ClientId = client._id;
+  //   }
+
+  //   // CATEGORY FILTER
+  //   if (category) {
+  //     const selectedCategory = await TransactionsCategory.findOne({
+  //       NameCategory: category,
+  //     });
+  //     if (!selectedCategory) {
+  //       return res.status(404).json({
+  //         message: `No transactions were found with the category: ${category}`,
+  //       });
+  //     }
+  //     // console.log(selectedCategory);
+  //     query.TypeTransaction = selectedCategory._id;
+  //   }
+  //   // STATUS FILTER
+  //   if (status) {
+  //     switch (status) {
+  //       case "Pending":
+  //         query.Status = "Pending";
+  //         break;
+  //       case "Approved":
+  //         query.Status = "Approved";
+  //         break;
+  //       case "Declined":
+  //         query.Status = "Declined";
+  //         break;
+  //       default:
+  //         return res.status(404).json({
+  //           message: `No transaction was found with the status : ${status}`,
+  //         });
+  //     }
+  //   }
+  //   const skip = (page - 1) * ITEMS_PER_PAGE; // Calculate the number of documents to skip
+  //   const limit = ITEMS_PER_PAGE; // Number of documents to retrieve per page
+
+  //   try {
+  //     if (page) {
+  //       const transactions = await Transaction.find(query)
+  //         .populate("ClientId")
+  //         .populate("Amount")
+  //         .populate("CurrencyId")
+  //         .populate("TypeTransaction")
+  //         .populate({
+  //           path: "ClientId",
+  //           populate: {
+  //             path: "profile",
+  //             model: "Profile",
+  //           },
+  //         })
+  //         .skip(skip)
+  //         .limit(limit);
+  //       const count = await Transaction.countDocuments(query);
+  //       const pageCount = Math.ceil(count / ITEMS_PER_PAGE);
+  //       console.log("test");
+  //       res.send({
+  //         transactions,
+  //         pagination: { count, pageCount, page },
+  //       });
+  //     } else {
+  //       const transactions = await Transaction.find(query)
+  //         .populate("ClientId")
+  //         .populate("Amount")
+  //         .populate("CurrencyId")
+  //         .populate("TypeTransaction")
+  //         .populate({
+  //           path: "ClientId",
+  //           populate: {
+  //             path: "profile",
+  //             model: "Profile",
+  //           },
+  //         });
+  //       res.send({
+  //         transactions,
+  //       });
+  //     }
+  //     // console.log(transactions);
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).send({ error: "Server Error" });
+  //   }
+  // };
 
   static showTransaction = async (req, res) => {
     try {
