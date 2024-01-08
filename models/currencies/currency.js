@@ -12,7 +12,11 @@ const CurrencySchema = mongoose.Schema({
     CurrencyCode: {
         type: String,
         required: true,
-    },
+    }
+    // CurrencyCode: {
+    //     type: String,
+    //     required: true,
+    // },
 });
 
 module.exports = mongoose.model('Currency', CurrencySchema);
