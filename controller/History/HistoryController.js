@@ -35,6 +35,35 @@ class HistoryController {
       return res.status(500).json({ message: "Internal server error" });
     }
   };
+  // static getUsersHistory = async (req, res) => {
+  //   try {
+  //     const users = await User.find();
+  //     const UserHistory = [];
+
+  //     for (const user of users) {
+  //       const userProfile = await Profile.findOne({ _id: user.profile });
+
+  //       if (!userProfile) {
+  //         continue;
+  //       }
+
+  //       const schema = {
+  //         firstName: userProfile.firstName,
+  //         lastName: userProfile.lastName,
+  //         CIN: userProfile.CIN,
+  //         email: user.email,
+  //         userHistory: user.userHistory,
+  //       };
+
+  //       UserHistory.push(schema);
+  //     }
+
+  //     return res.status(200).json({ History: UserHistory });
+  //   } catch (error) {
+  //     console.error(error);
+  //     return res.status(500).json({ message: "Internal server error" });
+  //   }
+  // };
 
   static getTransactionsHistory = async (req, res) => {
     try {
