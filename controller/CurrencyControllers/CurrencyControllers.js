@@ -22,6 +22,24 @@ class CurrencyController {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   };
+  // static getCurrency = async (req, res) => {
+  //   try {
+  //     const { idCurrency } = req.params;
+  //     const currency = await Currency.findOne({ _id: idCurrency });
+  //     if (currency) {
+  //       return res.status(200).json({
+  //         currency,
+  //       });
+  //     } else {
+  //       return res.status(404).json({
+  //         message: "No Specific Currency found",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     return res.status(500).json({ error: "Internal Server Error" });
+  //   }
+  // };
 
   static getCurrencies = async (req, res) => {
     try {
