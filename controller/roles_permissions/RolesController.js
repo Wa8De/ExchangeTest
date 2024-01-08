@@ -8,6 +8,7 @@ class RolesController {
       // Find the user by their userId
       const user = await User.findOne({ _id: userId }).populate("role");
 
+      
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
