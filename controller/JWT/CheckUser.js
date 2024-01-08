@@ -10,6 +10,7 @@ class CheckUser {
       return res.status(401).json({ error: "Authorization header missing" });
     }
     try {
+      
       const token = authHeader.split(" ")[1];
       //   console.log(token)
       const decodedPayload = jwt.verify(token, process.env.JWT_SECRET);
