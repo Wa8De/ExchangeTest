@@ -12,5 +12,10 @@ const ExchangeRatesSchema = new mongoose.Schema({
         type: Number,
         required : true
     }
+    // ,
+    // exchangeRates : {
+    //     type: Number,
+    //     required : true
+    // }
 })
 module.exports = mongoose.model("ExchangeRates", ExchangeRatesSchema)
