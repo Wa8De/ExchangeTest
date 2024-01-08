@@ -7,4 +7,10 @@ const RolesSchema = new mongoose.Schema({
         required:true
     },
 })
+// const RolesSchema = new mongoose.Schema({
+//     roleName :{
+//         type:String,
+//         required:true
+//     },
+// })
 module.exports = mongoose.model('Role', RolesSchema)
