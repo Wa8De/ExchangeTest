@@ -57,6 +57,32 @@ class PermissionsController {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   };
+  // static getPermissions = async (req, res) => {
+  //   const userId = req.params.id;
+  //   try {
+  //     // Find the user by their userId and populate the "permissions" field
+  //     const user = await User.findOne({ _id: userId }).populate("permissions");
+
+  //     if (!user) {
+  //       return res.status(404).json({ error: "User not found" });
+  //     }
+
+  //     // Access the user's permissions
+  //     const userPermissions = user.permissions;
+  //     // console.log(user);
+
+  //     if (!userPermissions || userPermissions.length === 0) {
+  //       return res
+  //         .status(404)
+  //         .json({ message: "User does not have permissions" });
+  //     }
+
+  //     return res.status(200).json({ permissions: userPermissions });
+  //   } catch (error) {
+  //     console.error(error);
+  //     return res.status(500).json({ error: "Internal Server Error" });
+  //   }
+  // };
 
   static addPermission = async (req, res) => {
     const userId = req.params.id;
