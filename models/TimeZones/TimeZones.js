@@ -9,6 +9,11 @@ const TimeZonesSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    // },
+    // timeZone: {
+    //     type: String,
+    //     required: true,
+    // },
 });
 
 module.exports = mongoose.model('TimeZone', TimeZonesSchema);
