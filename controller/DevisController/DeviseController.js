@@ -23,6 +23,27 @@ class DeviseController {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   };
+  // static CreateDevise = async (req, res) => {
+  //   const { name, country, city, amount } = req.body;
+
+  //   try {
+  //     const newDevise = new Devise({
+  //       devise: name,
+  //       amount,
+  //       country,
+  //       city,
+  //     });
+  //     await newDevise.save();
+
+  //     if (!newDevise) throw "Error creating devise";
+  //     return res.status(201).json({
+  //       message: "New Devise created successfully",
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     return res.status(500).json({ error: "Internal Server Error" });
+  //   }
+  // };
 
   //Get all Devises
   static GetDevises = async (req, res) => {
