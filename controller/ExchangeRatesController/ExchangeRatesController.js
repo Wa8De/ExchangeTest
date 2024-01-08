@@ -31,6 +31,34 @@ class ExchangeRatesController {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   };
+  // static CreateExchangeRates = async (req, res) => {
+  //   const { departDevise, arrivalDevise, exchangeRates } = req.body;
+
+  //   try {
+  //     const deviseD = await Devise.findOne({ _id: departDevise });
+  //     const deviseA = await Devise.findOne({ _id: arrivalDevise });
+  //     if (!deviseD || !deviseA) {
+  //       res.status(404).json({ message: "Devise not found" });
+  //     } else {
+  //       console.log(`depart : ${deviseD}`);
+  //       console.log(`arriv : ${deviseA}`);
+  //       console.log(exchangeRates);
+  //       const newExchangeRates = new ExchangeRates({
+  //         departureDevise: deviseD._id,
+  //         arrivalDevise: deviseA._id,
+  //         exchangeRates,
+  //       });
+  //       await newExchangeRates.save();
+  //       if (!newExchangeRates) throw "Error creating ExchangeRates";
+  //       return res.status(201).json({
+  //         message: "New ExchangeRates created successfully",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     return res.status(500).json({ error: "Internal Server Error" });
+  //   }
+  // };
 
   //Get all ExchangeRates
   static GetExchangeRates = async (req, res) => {
