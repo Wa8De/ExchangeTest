@@ -13,6 +13,12 @@ const BalanceSchema = mongoose.Schema({
         required: false, 
     },
     
+    // TransactionId:{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:"Transaction",
+    //     required: false, 
+    // },
+    
     Amount:{
             type: Number,
             required: true,
