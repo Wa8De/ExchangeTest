@@ -12,6 +12,15 @@ class TransactionCategoryController {
       res.status(500).send({ error: "Server Error" });
     }
   };
+  // static getTransactionCategories = async (req, res) => {
+  //   try {
+  //     const categories = await TransactionsCategory.find();
+  //     res.send({ categories });
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).send({ error: "Server Error" });
+  //   }
+  // };
 
   static getTransactionsbyCategory = async (req, res) => {
     const { idCategory } = req.params;
