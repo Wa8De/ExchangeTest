@@ -10,6 +10,10 @@ const userConnectionHistorySchema = new mongoose.Schema({
     type: String, //login|logout
     required: true,
   },
+  // connection_type: {
+  //   type: String, //login|logout
+  //   required: true,
+  // },
   ip_address: {
     type: String,
   },
